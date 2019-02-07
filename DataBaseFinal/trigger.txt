@@ -1,0 +1,35 @@
+drop table employee_info;
+Create table employee_info
+(id varchar(15),
+Name varchar(15),
+Balance number(8,3));
+
+
+ insert into employee_info values('ce101','waliul',3000);
+ insert into employee_info values('ce102','Rubel',4000);
+ insert into employee_info values('ce103','Rubela',2000);
+ insert into employee_info values('ce104','Rubeli',1000);
+ 
+ select * from employee_info;
+ 
+ create table tbl_audit
+ (message varchar(25),
+ balance int,
+ changedon date);
+ 
+ 
+ create or replace trigger view_trigger
+ before insert or update or delete on employee_info
+ for each row
+ begin 
+ insert into tbl_audit(message,balance,changedon) values('changed',:old.Balance,sysdate);
+ end;
+ 
+ 
+ insert into employee_info values('ce10013','Robin',45000);
+ 
+ update employee_info set balance=55000 where id='ce10013';
+ 
+ select * from employee_info;
+ 
+ select * from tbl_audit;

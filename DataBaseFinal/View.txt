@@ -1,0 +1,57 @@
+create table Adress(
+
+ID int primary key,
+Locationn varchar(100)
+);
+
+
+select * from Adress;
+
+insert into Adress values(132,'Dhaka');
+insert into Adress values(143,'Rajshahi');
+insert into Adress values(154,'Chottogram');
+
+
+create table emp_info(
+Company_Name varchar (100),
+No_of_Employee int,
+Starting_Salary varchar (100),
+B_ID int references Adress (ID)
+);
+select * from emp_info;
+
+
+insert into emp_info values ('Grameenphone',250,'40000',132);
+insert into emp_info values ('Accenture(GP IT)',100,'30000',132);
+insert into emp_info values ('HexaSoft',50,'25000',154);
+insert into emp_info values ('RajIT',50,'20000',143);
+
+
+
+/*1*/
+create view showvieww as select Company_Name as Name ,Starting_Salary as Salary ,Location from emp_info inner join Adress  on Adress.ID=emp_info.B_ID;
+select * from  ( showvieww );
+
+
+/*2*/
+
+
+create view Company_Info as select  Company_Name as Company ,No_of_employee as Employee,Starting_Salary as Salary , Location as Address
+from emp_info inner join Adress on  Adress.ID=emp_info.B_ID;
+
+select * from (Company_Info);
+
+
+/*3*/
+
+create view Company_iinfo as select  Company_Name as Company ,No_of_employee as Employee,Starting_Salary as Salary , Location as Address
+from emp_info inner join Adress on  Adress.ID=emp_info.B_ID;
+
+ create or replace  view Compny_iinfo  as
+ select Company_Name as Company ,Location from Adress inner join emp_info on emp_info.B_ID=Adress.ID ;
+ 
+ 
+ select * from (Compny_iinfo);
+ 
+ 
+
